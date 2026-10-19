@@ -3,15 +3,64 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Soccer 8196 - Pitch Merge</title>
+    <title>soccer 8196 // monkeytype edition</title>
     <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,600;0,700;1,700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=Roboto+Mono:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --pitch-dark: #15803d;
-            --pitch-light: #16a34a;
-            --pitch-line: rgba(255, 255, 255, 0.38);
-            --board-bg: #14532d;
+        /* Monkeytype Theme Variables - Default: Serika Dark */
+        :root, [data-theme="serika dark"] {
+            --bg-color: #323437;
+            --sub-alt-color: #2c2e31;
+            --sub-color: #646669;
+            --text-color: #d1d0c5;
+            --main-color: #e2b714;
+            --error-color: #ca4754;
+            --tile-base: #3b3e42;
+            --keycap-shadow: #1e2022;
+        }
+
+        [data-theme="botanical"] {
+            --bg-color: #1f2d27;
+            --sub-alt-color: #17231e;
+            --sub-color: #4f7363;
+            --text-color: #eaf1f3;
+            --main-color: #7bd88f;
+            --error-color: #f59e0b;
+            --tile-base: #263830;
+            --keycap-shadow: #111916;
+        }
+
+        [data-theme="dracula"] {
+            --bg-color: #282a36;
+            --sub-alt-color: #21222c;
+            --sub-color: #6272a4;
+            --text-color: #f8f8f2;
+            --main-color: #bd93f9;
+            --error-color: #ff79c6;
+            --tile-base: #343746;
+            --keycap-shadow: #191a21;
+        }
+
+        [data-theme="nord"] {
+            --bg-color: #242933;
+            --sub-alt-color: #1e222a;
+            --sub-color: #616e88;
+            --text-color: #d8dee9;
+            --main-color: #88c0d0;
+            --error-color: #bf616a;
+            --tile-base: #2e3440;
+            --keycap-shadow: #171a20;
+        }
+
+        [data-theme="8008"] {
+            --bg-color: #333a45;
+            --sub-alt-color: #292f38;
+            --sub-color: #939eae;
+            --text-color: #e9ecf0;
+            --main-color: #f44c7f;
+            --error-color: #da3333;
+            --tile-base: #3e4653;
+            --keycap-shadow: #1f242b;
         }
 
         * {
@@ -22,97 +71,68 @@
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background: radial-gradient(circle at 50% 20%, #0f172a 0%, #020617 100%);
-            color: #f8fafc;
+            font-family: 'JetBrains Mono', 'Roboto Mono', monospace;
+            background-color: var(--bg-color);
+            color: var(--text-color);
             overflow-x: hidden;
             touch-action: manipulation;
+            transition: background-color 180ms ease, color 180ms ease;
         }
 
-        .sport-font {
-            font-family: 'Chakra Petch', sans-serif;
-        }
+        .mt-sub { color: var(--sub-color); }
+        .mt-main { color: var(--main-color); }
+        .mt-text { color: var(--text-color); }
+        .mt-err { color: var(--error-color); }
+        .mt-bg-sub-alt { background-color: var(--sub-alt-color); }
 
-        /* Soccer Pitch Styling */
+        /* Minimalist Keycap & Pitch Container */
         .pitch-container {
             position: relative;
             width: 100%;
             max-width: 440px;
             aspect-ratio: 1 / 1;
-            background: repeating-linear-gradient(
-                0deg,
-                var(--pitch-dark),
-                var(--pitch-dark) 12.5%,
-                var(--pitch-light) 12.5%,
-                var(--pitch-light) 25%
-            );
-            border: 6px solid #ffffff;
-            border-radius: 18px;
-            box-shadow: 
-                0 20px 50px rgba(0, 0, 0, 0.7),
-                0 0 0 8px #14532d,
-                inset 0 0 30px rgba(0, 0, 0, 0.35);
+            background-color: var(--sub-alt-color);
+            border-radius: 14px;
             padding: 12px;
             touch-action: none;
             overflow: hidden;
+            border: 2px solid color-mix(in srgb, var(--sub-color) 22%, transparent);
+            transition: background-color 180ms ease, border-color 180ms ease;
         }
 
-        /* Pitch Markings Overlay */
+        /* Subtle Minimalist Soccer Pitch Markings */
         .pitch-markings {
             position: absolute;
             inset: 0;
             pointer-events: none;
             z-index: 1;
+            opacity: 0.16;
         }
 
-        /* Halfway Line */
         .pitch-markings::before {
             content: '';
             position: absolute;
             top: 50%;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--pitch-line);
+            left: 12px;
+            right: 12px;
+            height: 2px;
+            background: var(--sub-color);
             transform: translateY(-50%);
         }
 
-        /* Center Circle */
         .pitch-markings::after {
             content: '';
             position: absolute;
             top: 50%;
             left: 50%;
-            width: 34%;
-            height: 34%;
-            border: 3px solid var(--pitch-line);
+            width: 32%;
+            height: 32%;
+            border: 2px dashed var(--sub-color);
             border-radius: 50%;
             transform: translate(-50%, -50%);
         }
 
-        .penalty-box-top {
-            position: absolute;
-            top: 0;
-            left: 50%;
-            width: 46%;
-            height: 16%;
-            border: 3px solid var(--pitch-line);
-            border-top: none;
-            transform: translateX(-50%);
-        }
-
-        .penalty-box-bottom {
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 46%;
-            height: 16%;
-            border: 3px solid var(--pitch-line);
-            border-bottom: none;
-            transform: translateX(-50%);
-        }
-
-        /* Grid Cells */
+        /* 4x4 Keycap Socket Grid */
         .grid-background {
             position: relative;
             z-index: 2;
@@ -125,13 +145,12 @@
         }
 
         .grid-cell {
-            background: rgba(15, 23, 42, 0.28);
-            border: 1.5px solid rgba(255, 255, 255, 0.14);
-            border-radius: 12px;
-            backdrop-filter: blur(2px);
+            background-color: color-mix(in srgb, var(--bg-color) 65%, var(--sub-alt-color));
+            border-radius: 10px;
+            border: 1px solid color-mix(in srgb, var(--sub-color) 12%, transparent);
         }
 
-        /* Tile Layer */
+        /* Dynamic Tile Layer */
         .tile-layer {
             position: absolute;
             inset: 12px;
@@ -143,168 +162,233 @@
             position: absolute;
             width: calc((100% - 30px) / 4);
             height: calc((100% - 30px) / 4);
-            border-radius: 12px;
+            border-radius: 10px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            transition: transform 130ms cubic-bezier(0.22, 1, 0.36, 1);
+            transition: transform 115ms cubic-bezier(0.2, 1, 0.3, 1);
             will-change: transform;
         }
 
+        /* Mechanical Keycap Styling for Tiles */
         .tile-inner {
             width: 100%;
             height: 100%;
-            border-radius: 12px;
+            border-radius: 10px;
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.35), inset 0 2px 3px rgba(255, 255, 255, 0.35);
-            border: 2px solid rgba(255, 255, 255, 0.25);
-            padding: 2px;
+            background-color: var(--tile-base);
+            color: var(--text-color);
+            border: 1.5px solid color-mix(in srgb, var(--sub-color) 35%, transparent);
+            box-shadow: 0 4px 0 var(--keycap-shadow);
+            transform: translateY(-2px);
+            padding: 4px;
             text-align: center;
             position: relative;
             overflow: hidden;
+            transition: background-color 150ms ease, color 150ms ease, border-color 150ms ease;
         }
 
         /* Animations for Spawn and Merge */
         @keyframes spawnPop {
-            0% { transform: scale(0.2); opacity: 0; }
-            70% { transform: scale(1.08); opacity: 1; }
-            100% { transform: scale(1); opacity: 1; }
+            0% { transform: scale(0.4) translateY(0); opacity: 0; }
+            75% { transform: scale(1.05) translateY(-2px); opacity: 1; }
+            100% { transform: scale(1) translateY(-2px); opacity: 1; }
         }
 
-        @keyframes mergeBounce {
-            0% { transform: scale(1); }
-            45% { transform: scale(1.22); filter: brightness(1.2); }
-            100% { transform: scale(1); filter: brightness(1); }
+        @keyframes keycapPressMerge {
+            0% { transform: scale(1) translateY(1px); }
+            45% { transform: scale(1.14) translateY(-4px); }
+            100% { transform: scale(1) translateY(-2px); }
         }
 
         .tile-new .tile-inner {
-            animation: spawnPop 190ms ease-out forwards;
+            animation: spawnPop 160ms ease-out forwards;
         }
 
         .tile-merged .tile-inner {
-            animation: mergeBounce 220ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+            animation: keycapPressMerge 190ms cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
         }
 
-        /* Tile Color Palettes */
-        .tile-2 .tile-inner    { background: linear-gradient(135deg, #f8fafc, #cbd5e1); color: #0f172a; }
-        .tile-4 .tile-inner    { background: linear-gradient(135deg, #bae6fd, #38bdf8); color: #0c4a6e; }
-        .tile-8 .tile-inner    { background: linear-gradient(135deg, #86efac, #22c55e); color: #052e16; }
-        .tile-16 .tile-inner   { background: linear-gradient(135deg, #fde047, #eab308); color: #422006; }
-        .tile-32 .tile-inner   { background: linear-gradient(135deg, #fdba74, #f97316); color: #431407; }
-        .tile-64 .tile-inner   { background: linear-gradient(135deg, #fca5a5, #ef4444); color: #ffffff; }
-        .tile-128 .tile-inner  { background: linear-gradient(135deg, #c084fc, #9333ea); color: #ffffff; }
-        .tile-256 .tile-inner  { background: linear-gradient(135deg, #818cf8, #4f46e5); color: #ffffff; }
-        .tile-512 .tile-inner  { background: linear-gradient(135deg, #2dd4bf, #0d9488); color: #ffffff; }
-        .tile-1024 .tile-inner { background: linear-gradient(135deg, #f472b6, #db2777); color: #ffffff; }
-        .tile-2048 .tile-inner { background: linear-gradient(135deg, #fbbf24, #d97706); color: #ffffff; border-color: #fef08a; box-shadow: 0 0 18px rgba(251, 191, 36, 0.6); }
-        .tile-4096 .tile-inner { background: linear-gradient(135deg, #38bdf8, #1d4ed8); color: #ffffff; border-color: #bae6fd; box-shadow: 0 0 22px rgba(56, 189, 248, 0.75); }
-        .tile-8196 .tile-inner { 
-            background: linear-gradient(135deg, #fef08a 0%, #f59e0b 45%, #b45309 100%); 
-            color: #451a03; 
-            border: 2.5px solid #ffffff; 
-            box-shadow: 0 0 30px rgba(250, 204, 21, 0.95), inset 0 0 12px rgba(255, 255, 255, 0.8);
+        /* Monkeytype Keycap Tier Highlights */
+        .tile-2 .tile-inner {
+            background-color: color-mix(in srgb, var(--tile-base) 92%, var(--bg-color));
+            color: var(--sub-color);
+        }
+        .tile-4 .tile-inner {
+            background-color: var(--tile-base);
+            color: var(--text-color);
+        }
+        .tile-8 .tile-inner {
+            border-color: color-mix(in srgb, var(--text-color) 35%, transparent);
+        }
+        .tile-16 .tile-inner {
+            border-color: color-mix(in srgb, var(--main-color) 40%, transparent);
+            background-color: color-mix(in srgb, var(--tile-base) 90%, var(--main-color));
+        }
+        .tile-32 .tile-inner {
+            border-color: color-mix(in srgb, var(--main-color) 60%, transparent);
+            background-color: color-mix(in srgb, var(--tile-base) 84%, var(--main-color));
+        }
+        .tile-64 .tile-inner {
+            border-color: var(--main-color);
+            background-color: color-mix(in srgb, var(--tile-base) 76%, var(--main-color));
+            color: var(--main-color);
+        }
+        .tile-128 .tile-inner {
+            border-color: var(--main-color);
+            background-color: color-mix(in srgb, var(--tile-base) 65%, var(--main-color));
+            color: var(--text-color);
+        }
+        .tile-256 .tile-inner {
+            border-color: var(--error-color);
+            background-color: color-mix(in srgb, var(--tile-base) 72%, var(--error-color));
+            color: var(--text-color);
+        }
+        .tile-512 .tile-inner {
+            border-color: var(--error-color);
+            background-color: color-mix(in srgb, var(--tile-base) 55%, var(--error-color));
+            color: var(--text-color);
+        }
+        .tile-1024 .tile-inner {
+            background-color: color-mix(in srgb, var(--main-color) 78%, var(--sub-alt-color));
+            color: var(--bg-color);
+            border-color: var(--text-color);
+        }
+        .tile-2048 .tile-inner {
+            background-color: var(--main-color);
+            color: var(--bg-color);
+            border-color: var(--text-color);
+            box-shadow: 0 4px 0 var(--keycap-shadow), 0 0 16px color-mix(in srgb, var(--main-color) 45%, transparent);
+        }
+        .tile-4096 .tile-inner {
+            background-color: var(--error-color);
+            color: var(--bg-color);
+            border-color: var(--text-color);
+            box-shadow: 0 4px 0 var(--keycap-shadow), 0 0 20px color-mix(in srgb, var(--error-color) 55%, transparent);
+        }
+        .tile-8196 .tile-inner {
+            background: linear-gradient(135deg, var(--main-color) 0%, var(--error-color) 100%);
+            color: var(--bg-color);
+            border: 2px solid var(--text-color);
+            box-shadow: 0 4px 0 var(--keycap-shadow), 0 0 26px color-mix(in srgb, var(--main-color) 75%, transparent);
         }
 
-        /* Scoreboard LED Effect */
-        .scoreboard-box {
-            background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%);
-            border: 2px solid #334155;
-            box-shadow: inset 0 2px 6px rgba(0,0,0,0.6);
+        /* Navigation & Interactive Buttons */
+        .mt-btn {
+            color: var(--sub-color);
+            transition: color 120ms ease, background-color 120ms ease, transform 80ms ease;
+        }
+        .mt-btn:hover:not(:disabled) {
+            color: var(--text-color);
+        }
+        .mt-btn.active {
+            color: var(--main-color);
+        }
+
+        .kbd-badge {
+            background-color: var(--sub-alt-color);
+            color: var(--sub-color);
+            border: 1px solid color-mix(in srgb, var(--sub-color) 30%, transparent);
+            box-shadow: 0 2px 0 var(--keycap-shadow);
+            border-radius: 5px;
+            padding: 1px 6px;
+            font-size: 11px;
+            font-weight: 600;
+            transition: all 120ms ease;
+        }
+        .kbd-badge.armed {
+            background-color: var(--main-color);
+            color: var(--bg-color);
+            border-color: var(--main-color);
         }
 
         /* Floating +Score Pop */
         @keyframes floatUp {
-            0% { opacity: 1; transform: translateY(0) scale(0.9); }
-            100% { opacity: 0; transform: translateY(-28px) scale(1.1); }
+            0% { opacity: 1; transform: translateY(0) scale(0.95); }
+            100% { opacity: 0; transform: translateY(-22px) scale(1.05); }
         }
         .score-float {
-            animation: floatUp 650ms ease-out forwards;
+            animation: floatUp 550ms ease-out forwards;
+            color: var(--main-color);
         }
     </style>
 </head>
 <body class="min-h-screen flex flex-col items-center justify-between py-4 px-3 sm:py-6">
 
-    <!-- Header & Scoreboard -->
+    <!-- Minimalist Monkeytype Header & Mode Bar -->
     <header class="w-full max-w-[440px] flex flex-col gap-3">
+        <!-- Top Brand Row + Quick Action Bar -->
         <div class="flex items-center justify-between">
-            <!-- Game Logo / Title -->
             <div class="flex items-center gap-2.5">
-                <div class="w-11 h-11 rounded-xl bg-gradient-to-br from-emerald-400 to-green-700 flex items-center justify-center shadow-lg border border-emerald-200/40 text-2xl">
+                <div class="w-9 h-9 rounded-lg mt-bg-sub-alt flex items-center justify-center border border-white/5 text-xl shadow-sm">
                     ⚽
                 </div>
-                <div>
-                    <div class="flex items-center gap-1.5">
-                        <h1 class="sport-font text-3xl sm:text-4xl font-bold tracking-tight text-white leading-none">
-                            8196
-                        </h1>
-                        <span class="text-[10px] font-extrabold uppercase tracking-wider px-1.5 py-0.5 rounded bg-amber-400 text-slate-950">
-                            CUP EDITION
-                        </span>
+                <div class="leading-none">
+                    <div class="text-[10px] mt-sub tracking-widest lowercase mb-0.5">pitch merge</div>
+                    <div class="flex items-baseline gap-1.5">
+                        <h1 class="text-2xl font-extrabold tracking-tight mt-text lowercase">soccer</h1>
+                        <span class="text-2xl font-extrabold tracking-tight mt-main">8196</span>
                     </div>
-                    <p class="text-xs text-emerald-300/90 font-medium">Merge gear &amp; trophies to 8196!</p>
                 </div>
             </div>
 
-            <!-- Score Boxes -->
-            <div class="flex items-center gap-2">
-                <div class="scoreboard-box rounded-xl px-3 py-1.5 min-w-[78px] text-center relative">
-                    <div class="text-[10px] font-bold uppercase tracking-wider text-emerald-400">Score</div>
-                    <div id="score-display" class="sport-font text-lg sm:text-xl font-bold text-white leading-tight">0</div>
-                    <div id="score-float-container" class="absolute inset-0 pointer-events-none flex items-center justify-center"></div>
-                </div>
-                <div class="scoreboard-box rounded-xl px-3 py-1.5 min-w-[78px] text-center">
-                    <div class="text-[10px] font-bold uppercase tracking-wider text-amber-400">Best</div>
-                    <div id="best-display" class="sport-font text-lg sm:text-xl font-bold text-amber-300 leading-tight">0</div>
-                </div>
+            <!-- Minimalist Command Bar -->
+            <div class="flex items-center gap-1 mt-bg-sub-alt px-2.5 py-1.5 rounded-lg text-xs">
+                <button id="undo-btn" onclick="game.undo()" disabled title="undo last move (z / backspace)"
+                    class="mt-btn px-2 py-1 rounded flex items-center gap-1 disabled:opacity-30 disabled:pointer-events-none">
+                    <span>↩</span>
+                    <span>undo</span>
+                </button>
+                <span class="mt-sub opacity-30">|</span>
+                <button id="sound-btn" onclick="game.toggleSound()" title="toggle switch sound (m)"
+                    class="mt-btn active px-2 py-1 rounded flex items-center gap-1">
+                    <span id="sound-icon">⌨️</span>
+                    <span id="sound-label">thock</span>
+                </button>
+                <span class="mt-sub opacity-30">|</span>
+                <button onclick="game.restart()" title="restart match (tab + enter)"
+                    class="mt-btn px-2 py-1 rounded flex items-center gap-1 font-semibold">
+                    <span>↻</span>
+                    <span>restart</span>
+                </button>
             </div>
         </div>
 
-        <!-- Action Bar & Progression Status -->
-        <div class="flex items-center justify-between gap-2 bg-slate-900/90 border border-slate-800 rounded-xl p-2 shadow-md">
-            <div class="flex items-center gap-2 pl-1">
-                <span class="text-xs text-slate-400 font-medium">Top Rank:</span>
-                <div id="current-rank-badge" class="flex items-center gap-1.5 bg-slate-800 px-2.5 py-1 rounded-lg border border-slate-700 text-xs font-semibold text-white">
-                    <span>👟</span>
-                    <span>2 • Cleats</span>
-                </div>
+        <!-- Monkeytype Live Telemetry Strip (score, best, mpm, top tier) -->
+        <div class="grid grid-cols-4 gap-2 mt-bg-sub-alt rounded-xl px-3.5 py-2.5">
+            <div class="relative flex flex-col">
+                <span class="text-[10px] mt-sub lowercase">score</span>
+                <span id="score-display" class="text-lg sm:text-xl font-bold mt-main leading-tight">0</span>
+                <div id="score-float-container" class="absolute right-1 top-0 pointer-events-none"></div>
             </div>
-
-            <div class="flex items-center gap-1.5">
-                <button id="undo-btn" onclick="game.undo()" disabled
-                    class="flex items-center gap-1 px-3 py-1.5 rounded-lg font-semibold text-xs bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-200 border border-slate-600/80 transition disabled:opacity-40 disabled:pointer-events-none">
-                    <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.3" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M9 15L3 9m0 0l6-6M3 9h12a6 6 0 010 12h-3"/>
-                    </svg>
-                    <span>Undo</span>
-                </button>
-
-                <button id="sound-btn" onclick="game.toggleSound()" title="Toggle Referee Audio"
-                    class="p-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 active:scale-95 text-slate-200 border border-slate-600/80 transition text-sm">
-                    🔊
-                </button>
-
-                <button onclick="game.restart()"
-                    class="flex items-center gap-1 px-3 py-1.5 rounded-lg font-bold text-xs bg-gradient-to-r from-emerald-500 to-green-600 hover:from-emerald-400 hover:to-green-500 active:scale-95 text-slate-950 shadow-md transition">
-                    <span>Kickoff</span>
-                </button>
+            <div class="flex flex-col">
+                <span class="text-[10px] mt-sub lowercase">best</span>
+                <span id="best-display" class="text-lg sm:text-xl font-bold mt-text leading-tight">0</span>
+            </div>
+            <div class="flex flex-col">
+                <span class="text-[10px] mt-sub lowercase" title="moves per minute">mpm</span>
+                <span id="mpm-display" class="text-lg sm:text-xl font-bold mt-text leading-tight">0</span>
+            </div>
+            <div class="flex flex-col items-end text-right">
+                <span class="text-[10px] mt-sub lowercase">top tier</span>
+                <div id="current-rank-badge" class="text-xs sm:text-sm font-bold mt-main leading-tight truncate max-w-full mt-0.5">
+                    👟 2 cleats
+                </div>
             </div>
         </div>
     </header>
 
-    <!-- Main Pitch Game Board -->
+    <!-- Main Keycap / Pitch Game Board -->
     <main class="w-full flex flex-col items-center justify-center my-2">
         <div id="pitch-board" class="pitch-container">
-            <!-- Pitch Lines -->
-            <div class="pitch-markings">
-                <div class="penalty-box-top"></div>
-                <div class="penalty-box-bottom"></div>
-            </div>
+            <!-- Subtle Pitch Midline & Center Circle -->
+            <div class="pitch-markings"></div>
 
-            <!-- 4x4 Background Grid -->
+            <!-- 4x4 Keycap Socket Grid -->
             <div class="grid-background">
                 <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
                 <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
@@ -312,86 +396,111 @@
                 <div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div><div class="grid-cell"></div>
             </div>
 
-            <!-- Dynamic Sliding Tiles Layer -->
+            <!-- Sliding Keycap Tiles Layer -->
             <div id="tile-layer" class="tile-layer"></div>
 
-            <!-- Overlay Modal (Win / Game Over) -->
-            <div id="game-overlay" class="hidden absolute inset-0 z-30 bg-slate-950/85 backdrop-blur-md flex flex-col items-center justify-center p-6 text-center transition-opacity">
-                <div id="overlay-emoji" class="text-6xl mb-2 animate-bounce">🏆</div>
-                <h2 id="overlay-title" class="sport-font text-3xl font-bold text-white mb-1">FULL TIME!</h2>
-                <p id="overlay-subtitle" class="text-sm text-emerald-300 mb-5 max-w-xs">You reached the 8196 World Goat status!</p>
+            <!-- Minimalist Result Overlay (Win / Full Time) -->
+            <div id="game-overlay" class="hidden absolute inset-0 z-30 bg-black/75 backdrop-blur-sm flex flex-col items-center justify-center p-6 text-center transition-opacity">
+                <div id="overlay-emoji" class="text-5xl mb-2">👑</div>
+                <div class="text-xs mt-sub lowercase tracking-widest mb-0.5">match result</div>
+                <h2 id="overlay-title" class="text-2xl sm:text-3xl font-extrabold mt-main lowercase mb-2">full time</h2>
+                <p id="overlay-subtitle" class="text-xs mt-text mb-5 max-w-xs leading-relaxed">you reached the 8196 goat status.</p>
                 <div class="flex gap-3">
                     <button id="keep-playing-btn" onclick="game.keepPlaying()"
-                        class="hidden px-4 py-2.5 rounded-xl font-bold text-sm bg-slate-800 hover:bg-slate-700 text-white border border-slate-600 transition">
-                        Extra Time
+                        class="hidden px-4 py-2 rounded-lg font-semibold text-xs mt-bg-sub-alt mt-text border border-white/10 hover:border-white/30 transition lowercase">
+                        extra time
                     </button>
                     <button onclick="game.restart()"
-                        class="px-5 py-2.5 rounded-xl font-bold text-sm bg-gradient-to-r from-amber-400 to-yellow-500 hover:from-amber-300 hover:to-yellow-400 text-slate-950 shadow-lg transition">
-                        New Match
+                        class="px-5 py-2 rounded-lg font-bold text-xs bg-[var(--main-color)] text-[var(--bg-color)] shadow-md hover:opacity-90 transition lowercase">
+                        new match
                     </button>
                 </div>
             </div>
         </div>
     </main>
 
-    <!-- Progression Legend & Controls Footer -->
+    <!-- Monkeytype Footer: Progression Strip, Keyboard Hints & Theme Switcher -->
     <footer class="w-full max-w-[440px] flex flex-col gap-2.5">
-        <!-- Interactive On-Screen D-Pad for quick clicking or mobile accessibility -->
-        <div class="flex items-center justify-between bg-slate-900/80 border border-slate-800/90 rounded-xl px-3 py-2">
-            <div class="text-xs text-slate-400">
-                <p class="font-semibold text-slate-200">Controls</p>
-                <p>Swipe pitch or use <span class="text-emerald-400 font-semibold">Arrows / WASD</span></p>
+        <!-- Road to 8196 Keycap Legend + Touch D-Pad -->
+        <div class="mt-bg-sub-alt rounded-xl p-2.5 flex flex-col gap-2">
+            <div class="flex items-center justify-between text-[10px] mt-sub lowercase px-0.5">
+                <span>progression // 4096 + 4096 = <strong class="mt-main">8196 goat</strong></span>
+                <span id="moves-counter-label">0 moves</span>
             </div>
-            <div class="flex items-center gap-1">
-                <button onclick="game.move('left')" aria-label="Move Left" class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-slate-700 active:scale-90 flex items-center justify-center border border-slate-700 text-white font-bold">←</button>
-                <div class="flex flex-col gap-1">
-                    <button onclick="game.move('up')" aria-label="Move Up" class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-slate-700 active:scale-90 flex items-center justify-center border border-slate-700 text-white font-bold">↑</button>
-                    <button onclick="game.move('down')" aria-label="Move Down" class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-slate-700 active:scale-90 flex items-center justify-center border border-slate-700 text-white font-bold">↓</button>
-                </div>
-                <button onclick="game.move('right')" aria-label="Move Right" class="w-9 h-9 rounded-lg bg-slate-800 hover:bg-slate-700 active:scale-90 flex items-center justify-center border border-slate-700 text-white font-bold">→</button>
+            <div id="legend-strip" class="grid grid-cols-7 sm:grid-cols-13 gap-1 text-center">
+                <!-- Populated by JS -->
             </div>
         </div>
 
-        <!-- Road to 8196 Legend Bar -->
-        <div class="bg-slate-900/60 border border-slate-800/80 rounded-xl p-2.5">
-            <div class="flex items-center justify-between text-[11px] text-slate-400 mb-1.5 px-1">
-                <span class="font-bold uppercase tracking-wider text-slate-300">Road to 8196</span>
-                <span>Note: 4096 + 4096 = <strong class="text-amber-400">8196 GOAT!</strong></span>
+        <!-- Keyboard Shortcut Hints + Theme Switcher Bar -->
+        <div class="flex flex-col sm:flex-row items-center justify-between gap-2 text-[11px] mt-sub pt-1">
+            <!-- Shortcut Hints -->
+            <div class="flex flex-wrap items-center justify-center gap-x-3 gap-y-1">
+                <div class="flex items-center gap-1">
+                    <span id="tab-badge" class="kbd-badge">tab</span>
+                    <span>+</span>
+                    <span class="kbd-badge">enter</span>
+                    <span class="ml-0.5">restart</span>
+                </div>
+                <div class="flex items-center gap-1">
+                    <span class="kbd-badge">z</span>
+                    <span class="ml-0.5">undo</span>
+                </div>
+                <div class="flex items-center gap-1">
+                    <span class="kbd-badge">m</span>
+                    <span class="ml-0.5">sound</span>
+                </div>
             </div>
-            <div id="legend-strip" class="grid grid-cols-6 sm:grid-cols-12 gap-1 text-center">
-                <!-- Populated by JS -->
+
+            <!-- Theme Switcher -->
+            <div class="flex items-center gap-1.5 mt-bg-sub-alt px-2.5 py-1 rounded-lg">
+                <span class="text-[10px] opacity-60">🎨</span>
+                <div id="theme-switcher" class="flex items-center gap-2 text-[11px]">
+                    <!-- Populated by JS -->
+                </div>
             </div>
         </div>
     </footer>
 
     <script>
         /**
-         * Soccer 8196 Progression Metadata
-         * Notice that merging two 4096 tiles awards the special 8196 Championship tile (+4 Extra Time Bonus!)
+         * Soccer 8196 Progression Metadata (Lowercase Monkeytype Style)
+         * 2 Cleats -> 4 Socks -> 8 Shin Guards -> 16 Corner Flag -> 32 Whistle ->
+         * 64 Gloves -> 128 Match Ball -> 256 Jersey -> 512 Captain -> 1024 Hat-trick ->
+         * 2048 Ballon d'Or -> 4096 World Cup -> 8196 GOAT
          */
         const SOCCER_RANKS = {
-            2:    { icon: '👟', label: 'Cleats' },
-            4:    { icon: '🧦', label: 'Socks' },
-            8:    { icon: '🧤', label: 'Gloves' },
-            16:   { icon: '👕', label: 'Jersey' },
-            32:   { icon: '⏱️', label: 'Whistle' },
-            64:   { icon: '🚩', label: 'Corner' },
-            128:  { icon: '⚽', label: 'Match Ball' },
-            256:  { icon: '🎯', label: 'Top Bins' },
-            512:  { icon: '🥅', label: 'Hat-Trick' },
-            1024: { icon: '🥇', label: 'Golden Boot' },
-            2048: { icon: '🏅', label: 'Ballon d\'Or' },
-            4096: { icon: '🏆', label: 'World Cup' },
-            8196: { icon: '👑', label: '8196 GOAT' }
+            2:    { icon: '👟', label: 'cleats' },
+            4:    { icon: '🧦', label: 'socks' },
+            8:    { icon: '🛡️', label: 'shin guards' },
+            16:   { icon: '🚩', label: 'corner flag' },
+            32:   { icon: '⏱️', label: 'whistle' },
+            64:   { icon: '🧤', label: 'gloves' },
+            128:  { icon: '⚽', label: 'match ball' },
+            256:  { icon: '👕', label: 'jersey' },
+            512:  { icon: '©️', label: 'captain' },
+            1024: { icon: '🎩', label: 'hat-trick' },
+            2048: { icon: '🏅', label: 'ballon d\'or' },
+            4096: { icon: '🏆', label: 'world cup' },
+            8196: { icon: '👑', label: 'goat' }
         };
 
+        const THEMES = ['serika dark', 'botanical', 'dracula', 'nord', '8008'];
+
         /**
-         * Lightweight Web Audio Synthesizer for stadium/kick sound effects
+         * Tactile Mechanical Keyboard Switch Synthesizer (Web Audio API)
+         * Generates realistic "thock" and "click" key switch acoustics on slide and merge
          */
-        class SoundEffects {
+        class MechanicalAudio {
             constructor() {
-                this.enabled = true;
+                // Modes: 'thock' -> 'clicky' -> 'mute'
+                this.modes = ['thock', 'clicky', 'mute'];
+                this.modeIndex = 0;
                 this.ctx = null;
+            }
+
+            get currentMode() {
+                return this.modes[this.modeIndex];
             }
 
             init() {
@@ -399,79 +508,118 @@
                     const AudioCtx = window.AudioContext || window.webkitAudioContext;
                     if (AudioCtx) this.ctx = new AudioCtx();
                 }
+                if (this.ctx && this.ctx.state === 'suspended') {
+                    this.ctx.resume();
+                }
             }
 
-            playKick() {
-                if (!this.enabled) return;
+            cycleMode() {
+                this.modeIndex = (this.modeIndex + 1) % this.modes.length;
+                if (this.currentMode !== 'mute') {
+                    this.playSwitchPress(false, 4);
+                }
+                return this.currentMode;
+            }
+
+            /**
+             * Synthesizes a mechanical switch bottom-out + housing resonance
+             */
+            playSwitchPress(isMerge = false, highestMergeVal = 2) {
+                if (this.currentMode === 'mute') return;
                 this.init();
                 if (!this.ctx) return;
 
                 const now = this.ctx.currentTime;
-                const osc = this.ctx.createOscillator();
-                const gain = this.ctx.createGain();
-                osc.type = 'triangle';
-                osc.frequency.setValueAtTime(130, now);
-                osc.frequency.exponentialRampToValueAtTime(45, now + 0.075);
+                const isClicky = this.currentMode === 'clicky';
 
-                gain.gain.setValueAtTime(0.18, now);
-                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.075);
+                // 1. Short transient burst (keycap stem impact)
+                const bufferSize = this.ctx.sampleRate * 0.025;
+                const noiseBuffer = this.ctx.createBuffer(1, bufferSize, this.ctx.sampleRate);
+                const output = noiseBuffer.getChannelData(0);
+                for (let i = 0; i < bufferSize; i++) {
+                    output[i] = (Math.random() * 2 - 1) * Math.exp(-i / (bufferSize * 0.28));
+                }
 
-                osc.connect(gain);
-                gain.connect(this.ctx.destination);
-                osc.start(now);
-                osc.stop(now + 0.08);
+                const whiteNoise = this.ctx.createBufferSource();
+                whiteNoise.buffer = noiseBuffer;
+
+                const filter = this.ctx.createBiquadFilter();
+                filter.type = 'bandpass';
+                filter.frequency.setValueAtTime(isClicky ? 2600 : 950, now);
+                filter.Q.setValueAtTime(isClicky ? 3.0 : 1.4, now);
+
+                const noiseGain = this.ctx.createGain();
+                noiseGain.gain.setValueAtTime(isMerge ? 0.32 : 0.2, now);
+                noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.024);
+
+                whiteNoise.connect(filter);
+                filter.connect(noiseGain);
+                noiseGain.connect(this.ctx.destination);
+                whiteNoise.start(now);
+
+                // 2. Low-end case body "thock" oscillator
+                const bodyOsc = this.ctx.createOscillator();
+                const bodyGain = this.ctx.createGain();
+                bodyOsc.type = isClicky ? 'triangle' : 'sine';
+
+                const startFreq = isClicky ? 240 : 145;
+                const endFreq = isClicky ? 75 : 42;
+                bodyOsc.frequency.setValueAtTime(startFreq, now);
+                bodyOsc.frequency.exponentialRampToValueAtTime(endFreq, now + 0.055);
+
+                bodyGain.gain.setValueAtTime(isMerge ? 0.28 : 0.2, now);
+                bodyGain.gain.exponentialRampToValueAtTime(0.001, now + 0.06);
+
+                bodyOsc.connect(bodyGain);
+                bodyGain.connect(this.ctx.destination);
+                bodyOsc.start(now);
+                bodyOsc.stop(now + 0.065);
+
+                // 3. Subtle harmonic tactile chime on tile merge
+                if (isMerge) {
+                    const step = Math.min(13, Math.log2(highestMergeVal));
+                    const chimeFreq = 320 + step * 52;
+                    const chimeOsc = this.ctx.createOscillator();
+                    const chimeGain = this.ctx.createGain();
+
+                    chimeOsc.type = 'sine';
+                    chimeOsc.frequency.setValueAtTime(chimeFreq, now + 0.015);
+                    chimeOsc.frequency.exponentialRampToValueAtTime(chimeFreq * 1.25, now + 0.11);
+
+                    chimeGain.gain.setValueAtTime(0.12, now + 0.015);
+                    chimeGain.gain.exponentialRampToValueAtTime(0.001, now + 0.12);
+
+                    chimeOsc.connect(chimeGain);
+                    chimeGain.connect(this.ctx.destination);
+                    chimeOsc.start(now + 0.015);
+                    chimeOsc.stop(now + 0.125);
+                }
             }
 
-            playMerge(value) {
-                if (!this.enabled) return;
-                this.init();
-                if (!this.ctx) return;
-
-                const now = this.ctx.currentTime;
-                const osc = this.ctx.createOscillator();
-                const gain = this.ctx.createGain();
-
-                // Scale pitch slightly higher with higher tile merges
-                const step = Math.min(13, Math.log2(value));
-                const baseFreq = 240 + step * 48;
-
-                osc.type = 'sine';
-                osc.frequency.setValueAtTime(baseFreq, now);
-                osc.frequency.exponentialRampToValueAtTime(baseFreq * 1.35, now + 0.13);
-
-                gain.gain.setValueAtTime(0.2, now);
-                gain.gain.exponentialRampToValueAtTime(0.001, now + 0.14);
-
-                osc.connect(gain);
-                gain.connect(this.ctx.destination);
-                osc.start(now);
-                osc.stop(now + 0.14);
-            }
-
-            playGoalFanfare() {
-                if (!this.enabled) return;
+            playGoalChord() {
+                if (this.currentMode === 'mute') return;
                 this.init();
                 if (!this.ctx) return;
 
                 const notes = [523.25, 659.25, 783.99, 1046.5];
                 notes.forEach((freq, idx) => {
-                    const now = this.ctx.currentTime + idx * 0.09;
+                    const now = this.ctx.currentTime + idx * 0.075;
                     const osc = this.ctx.createOscillator();
                     const gain = this.ctx.createGain();
                     osc.type = 'triangle';
                     osc.frequency.setValueAtTime(freq, now);
-                    gain.gain.setValueAtTime(0.22, now);
-                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.25);
+                    gain.gain.setValueAtTime(0.16, now);
+                    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.24);
                     osc.connect(gain);
                     gain.connect(this.ctx.destination);
                     osc.start(now);
-                    osc.stop(now + 0.26);
+                    osc.stop(now + 0.25);
                 });
             }
         }
 
         /**
-         * Main Soccer 8196 Game Controller
+         * Main Soccer 8196 Monkeytype Edition Controller
          */
         class Soccer8196Game {
             constructor() {
@@ -479,40 +627,71 @@
                 this.board = [];
                 this.score = 0;
                 this.bestScore = parseInt(localStorage.getItem('soccer8196_best') || '0', 10);
+                this.currentTheme = localStorage.getItem('soccer8196_theme') || 'serika dark';
                 this.previousState = null;
                 this.won = false;
                 this.keepPlayingMode = false;
                 this.tileIdCounter = 1;
-                this.sfx = new SoundEffects();
+                this.sfx = new MechanicalAudio();
 
-                // DOM Elements
+                // Telemetry for MPM (Moves Per Minute)
+                this.moveTimestamps = [];
+                this.totalMoves = 0;
+                this.tabArmed = false;
+                this.tabArmTimer = null;
+
+                // DOM References
                 this.tileLayer = document.getElementById('tile-layer');
                 this.scoreDisplay = document.getElementById('score-display');
                 this.bestDisplay = document.getElementById('best-display');
+                this.mpmDisplay = document.getElementById('mpm-display');
+                this.movesCounterLabel = document.getElementById('moves-counter-label');
                 this.scoreFloatContainer = document.getElementById('score-float-container');
                 this.undoBtn = document.getElementById('undo-btn');
                 this.soundBtn = document.getElementById('sound-btn');
+                this.soundIcon = document.getElementById('sound-icon');
+                this.soundLabel = document.getElementById('sound-label');
                 this.rankBadge = document.getElementById('current-rank-badge');
                 this.overlay = document.getElementById('game-overlay');
                 this.overlayEmoji = document.getElementById('overlay-emoji');
                 this.overlayTitle = document.getElementById('overlay-title');
                 this.overlaySubtitle = document.getElementById('overlay-subtitle');
                 this.keepPlayingBtn = document.getElementById('keep-playing-btn');
+                this.tabBadge = document.getElementById('tab-badge');
 
+                this.applyTheme(this.currentTheme);
                 this.renderLegend();
                 this.setupInputs();
                 this.restart();
+
+                // Live MPM decay ticker
+                setInterval(() => this.updateMPMDisplay(), 1000);
+            }
+
+            applyTheme(themeName) {
+                this.currentTheme = themeName;
+                document.documentElement.setAttribute('data-theme', themeName);
+                localStorage.setItem('soccer8196_theme', themeName);
+                this.renderThemeSwitcher();
+            }
+
+            renderThemeSwitcher() {
+                const container = document.getElementById('theme-switcher');
+                container.innerHTML = THEMES.map(t => {
+                    const isActive = t === this.currentTheme;
+                    return `<button onclick="game.applyTheme('${t}')" class="mt-btn ${isActive ? 'active font-bold underline underline-offset-4' : ''}">${t}</button>`;
+                }).join('');
             }
 
             renderLegend() {
                 const strip = document.getElementById('legend-strip');
-                const keys = [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 8196];
+                const keys = [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 2048, 4096, 8196];
                 strip.innerHTML = keys.map(val => {
                     const info = SOCCER_RANKS[val];
                     return `
-                        <div class="flex flex-col items-center justify-center bg-slate-800/90 rounded-lg py-1 px-0.5 border border-slate-700/60">
+                        <div title="${val} • ${info.label}" class="flex flex-col items-center justify-center rounded py-1 px-0.5 bg-[var(--bg-color)] border border-white/5">
                             <span class="text-xs leading-none">${info.icon}</span>
-                            <span class="sport-font text-[10px] font-bold text-slate-200 mt-0.5">${val}</span>
+                            <span class="text-[9px] font-bold mt-text mt-0.5">${val}</span>
                         </div>
                     `;
                 }).join('');
@@ -524,37 +703,55 @@
                 this.previousState = null;
                 this.won = false;
                 this.keepPlayingMode = false;
+                this.moveTimestamps = [];
+                this.totalMoves = 0;
                 this.hideOverlay();
 
                 this.spawnRandomTile();
                 this.spawnRandomTile();
                 this.updateUI();
                 this.renderTiles();
-            }
-
-            saveHistoryState() {
-                const clonedBoard = this.board.map(row =>
-                    row.map(cell => (cell ? { ...cell, mergedFrom: null, isNew: false } : null))
-                );
-                this.previousState = {
-                    board: clonedBoard,
-                    score: this.score
-                };
             }
 
             undo() {
                 if (!this.previousState) return;
                 this.board = this.previousState.board;
                 this.score = this.previousState.score;
+                this.totalMoves = Math.max(0, this.totalMoves - 1);
                 this.previousState = null;
+                this.sfx.playSwitchPress(false, 2);
                 this.hideOverlay();
                 this.updateUI();
                 this.renderTiles();
             }
 
             toggleSound() {
-                this.sfx.enabled = !this.sfx.enabled;
-                this.soundBtn.textContent = this.sfx.enabled ? '🔊' : '🔇';
+                const mode = this.sfx.cycleMode();
+                if (mode === 'mute') {
+                    this.soundBtn.classList.remove('active');
+                    this.soundIcon.textContent = '🔇';
+                    this.soundLabel.textContent = 'mute';
+                } else {
+                    this.soundBtn.classList.add('active');
+                    this.soundIcon.textContent = '⌨️';
+                    this.soundLabel.textContent = mode;
+                }
+            }
+
+            recordMoveTelemetry() {
+                const now = Date.now();
+                this.totalMoves++;
+                this.moveTimestamps.push(now);
+                this.updateMPMDisplay();
+            }
+
+            updateMPMDisplay() {
+                const now = Date.now();
+                // Keep moves from the last 15 seconds and extrapolate to 60s for responsive MPM
+                this.moveTimestamps = this.moveTimestamps.filter(t => now - t <= 15000);
+                const mpm = Math.round(this.moveTimestamps.length * 4);
+                this.mpmDisplay.textContent = mpm;
+                this.movesCounterLabel.textContent = `${this.totalMoves} ${this.totalMoves === 1 ? 'move' : 'moves'}`;
             }
 
             spawnRandomTile() {
@@ -580,8 +777,7 @@
             }
 
             /**
-             * Custom 8196 Merge Progression Rule:
-             * Standard doubling up to 4096, and 4096 + 4096 = 8196!
+             * Custom 8196 Merge Rule: 4096 + 4096 = 8196 GOAT
              */
             getNextMergedValue(val) {
                 if (val === 4096) return 8196;
@@ -591,7 +787,6 @@
             move(direction) {
                 if (!this.overlay.classList.contains('hidden')) return;
 
-                // Clear animation flags from previous turn
                 for (let r = 0; r < this.size; r++) {
                     for (let c = 0; c < this.size; c++) {
                         if (this.board[r][c]) {
@@ -615,7 +810,6 @@
                 if (vector.dr === 1) rowOrder.reverse();
                 if (vector.dc === 1) colOrder.reverse();
 
-                // Save snapshot for Undo before modifying
                 const snapshotBoard = this.board.map(row =>
                     row.map(cell => (cell ? { ...cell, mergedFrom: null, isNew: false } : null))
                 );
@@ -683,11 +877,12 @@
 
                 if (!moved) return;
 
-                // Commit undo snapshot
                 this.previousState = {
                     board: snapshotBoard,
                     score: snapshotScore
                 };
+
+                this.recordMoveTelemetry();
 
                 this.score += pointsEarned;
                 if (this.score > this.bestScore) {
@@ -698,12 +893,12 @@
                 if (pointsEarned > 0) {
                     this.showScoreFloat(pointsEarned);
                     if (highestMergeValue >= 8196) {
-                        this.sfx.playGoalFanfare();
+                        this.sfx.playGoalChord();
                     } else {
-                        this.sfx.playMerge(highestMergeValue);
+                        this.sfx.playSwitchPress(true, highestMergeValue);
                     }
                 } else {
-                    this.sfx.playKick();
+                    this.sfx.playSwitchPress(false, 2);
                 }
 
                 this.spawnRandomTile();
@@ -714,10 +909,10 @@
 
             showScoreFloat(points) {
                 const el = document.createElement('div');
-                el.className = 'score-float sport-font text-sm font-bold text-emerald-300';
+                el.className = 'score-float text-xs font-bold';
                 el.textContent = `+${points}`;
                 this.scoreFloatContainer.appendChild(el);
-                setTimeout(() => el.remove(), 650);
+                setTimeout(() => el.remove(), 550);
             }
 
             getHighestTile() {
@@ -738,15 +933,11 @@
                 this.undoBtn.disabled = !this.previousState;
 
                 const topVal = this.getHighestTile();
-                const meta = SOCCER_RANKS[topVal] || { icon: '👑', label: 'Legend' };
-                this.rankBadge.innerHTML = `<span>${meta.icon}</span><span>${topVal} • ${meta.label}</span>`;
+                const meta = SOCCER_RANKS[topVal] || { icon: '👑', label: 'goat' };
+                this.rankBadge.textContent = `${meta.icon} ${topVal} ${meta.label}`;
             }
 
-            /**
-             * Render tiles with smooth CSS transforms
-             */
             renderTiles() {
-                // Keep track of existing DOM nodes by tile ID for smooth sliding
                 const existingNodes = new Map();
                 Array.from(this.tileLayer.children).forEach(node => {
                     const id = Number(node.dataset.id);
@@ -759,10 +950,10 @@
                     activeIds.add(tileObj.id);
                     let node = existingNodes.get(tileObj.id);
 
-                    const meta = SOCCER_RANKS[tileObj.value] || { icon: '⚽', label: 'Pro' };
+                    const meta = SOCCER_RANKS[tileObj.value] || { icon: '⚽', label: 'pro' };
                     const colorClass = `tile-${Math.min(tileObj.value, 8196)}`;
                     const numDigits = String(tileObj.value).length;
-                    const fontSizeClass = numDigits >= 4 ? 'text-base sm:text-lg' : 'text-lg sm:text-xl';
+                    const fontSizeClass = numDigits >= 4 ? 'text-sm sm:text-base' : 'text-base sm:text-lg';
 
                     if (!node) {
                         node = document.createElement('div');
@@ -773,9 +964,9 @@
 
                         node.innerHTML = `
                             <div class="tile-inner">
-                                <div class="text-xl sm:text-2xl leading-none">${meta.icon}</div>
-                                <div class="sport-font ${fontSizeClass} font-bold leading-tight mt-0.5">${tileObj.value}</div>
-                                <div class="text-[9px] sm:text-[10px] font-bold uppercase tracking-tight opacity-85 leading-none truncate max-w-full px-1">${meta.label}</div>
+                                <div class="text-lg sm:text-xl leading-none">${meta.icon}</div>
+                                <div class="${fontSizeClass} font-extrabold leading-tight mt-0.5">${tileObj.value}</div>
+                                <div class="text-[8px] sm:text-[9px] font-medium lowercase opacity-75 leading-none truncate max-w-full px-1">${meta.label}</div>
                             </div>
                         `;
                         this.tileLayer.appendChild(node);
@@ -786,16 +977,10 @@
                         }
                     }
 
-                    // Calculate percentage offset including 10px grid gap
-                    // Each cell is width = (100% - 30px)/4. Moving 1 col = 100% of tile width + 10px gap
                     const xCalc = `calc(${tileObj.c * 100}% + ${tileObj.c * 10}px)`;
                     const yCalc = `calc(${tileObj.r * 100}% + ${tileObj.r * 10}px)`;
                     node.style.transform = `translate(${xCalc}, ${yCalc})`;
-                    if (isGhost) {
-                        node.style.zIndex = '5';
-                    } else {
-                        node.style.zIndex = tileObj.mergedFrom ? '15' : '10';
-                    }
+                    node.style.zIndex = isGhost ? '5' : (tileObj.mergedFrom ? '15' : '10');
                 };
 
                 for (let r = 0; r < this.size; r++) {
@@ -814,19 +999,15 @@
                     }
                 }
 
-                // Remove stale DOM elements
                 existingNodes.forEach((node, id) => {
-                    if (!activeIds.has(id)) {
-                        node.remove();
-                    }
+                    if (!activeIds.has(id)) node.remove();
                 });
 
-                // Clean up merged ghost nodes after transition finishes
                 setTimeout(() => {
                     Array.from(this.tileLayer.children).forEach(node => {
                         if (node.style.zIndex === '5') node.remove();
                     });
-                }, 135);
+                }, 125);
             }
 
             hasMovesAvailable() {
@@ -847,8 +1028,8 @@
                     this.won = true;
                     this.showOverlay(
                         '👑',
-                        'GOOOAAAL! 8196!',
-                        'You merged all the way to the 8196 World GOAT Trophy! Continue into Extra Time or start a fresh match.',
+                        'goal // 8196 goat',
+                        `you unlocked the 8196 championship keycap in ${this.totalMoves} moves.`,
                         true
                     );
                     return;
@@ -857,8 +1038,8 @@
                 if (!this.hasMovesAvailable()) {
                     this.showOverlay(
                         '⏱️',
-                        'FULL TIME!',
-                        `No more passes available on the pitch. Final Score: ${this.score.toLocaleString()}`,
+                        'full time',
+                        `no more passes available. final score: ${this.score.toLocaleString()} (${this.totalMoves} moves)`,
                         false
                     );
                 }
@@ -886,20 +1067,45 @@
             }
 
             setupInputs() {
-                // Keyboard Arrows & WASD
                 window.addEventListener('keydown', (e) => {
+                    // Monkeytype signature `Tab + Enter` quick restart combo
+                    if (e.key === 'Tab') {
+                        e.preventDefault();
+                        this.tabArmed = true;
+                        this.tabBadge.classList.add('armed');
+                        clearTimeout(this.tabArmTimer);
+                        this.tabArmTimer = setTimeout(() => {
+                            this.tabArmed = false;
+                            this.tabBadge.classList.remove('armed');
+                        }, 1600);
+                        return;
+                    }
+
+                    if (e.key === 'Enter' && this.tabArmed) {
+                        e.preventDefault();
+                        this.tabArmed = false;
+                        this.tabBadge.classList.remove('armed');
+                        this.sfx.playSwitchPress(false, 4);
+                        this.restart();
+                        return;
+                    }
+
                     const keyMap = {
-                        ArrowUp: 'up',    KeyW: 'up',
-                        ArrowDown: 'down',  KeyS: 'down',
-                        ArrowLeft: 'left',  KeyA: 'left',
-                        ArrowRight: 'right', KeyD: 'right'
+                        ArrowUp: 'up',    KeyW: 'up',    KeyK: 'up',
+                        ArrowDown: 'down',  KeyS: 'down',  KeyJ: 'down',
+                        ArrowLeft: 'left',  KeyA: 'left',  KeyH: 'left',
+                        ArrowRight: 'right', KeyD: 'right', KeyL: 'right'
                     };
                     const dir = keyMap[e.code] || keyMap[e.key];
                     if (dir) {
                         e.preventDefault();
                         this.move(dir);
-                    } else if (e.key === 'z' || e.key === 'Z') {
+                    } else if (e.key === 'z' || e.key === 'Z' || e.key === 'Backspace') {
+                        e.preventDefault();
                         this.undo();
+                    } else if (e.key === 'm' || e.key === 'M') {
+                        e.preventDefault();
+                        this.toggleSound();
                     }
                 });
 
@@ -921,8 +1127,7 @@
                     const absX = Math.abs(dx);
                     const absY = Math.abs(dy);
 
-                    // Minimum swipe threshold
-                    if (Math.max(absX, absY) > 26) {
+                    if (Math.max(absX, absY) > 24) {
                         if (absX > absY) {
                             this.move(dx > 0 ? 'right' : 'left');
                         } else {
@@ -933,7 +1138,6 @@
             }
         }
 
-        // Start game on load
         let game;
         window.onload = function () {
             game = new Soccer8196Game();
